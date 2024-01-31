@@ -1,6 +1,6 @@
 import { Country } from "./county.model";
 
 export interface CountryState {
-  isLoading: boolean;
+  isLoadingCountries: boolean;
   countries: Country[];
 }

@@ -1,31 +1,46 @@
-import { Component } from '@angular/core';
-import { SearchBoxComponent } from '../../../shared';
+import { Component, inject } from '@angular/core';
+
+import { LoadingComponent, SearchBoxComponent } from '../../../shared';
+import { CountryService } from '../../services';
+import { CountryTableComponent } from '../../components';
 
 @Component({
   selector: 'app-by-capital-view',
   standalone: true,
-  imports: [SearchBoxComponent],
+  imports: [SearchBoxComponent, CountryTableComponent, LoadingComponent],
   template: `
+    @if(countryService.countriesState().isLoadingCountries) {
+    <shared-loading />
+    }
     <h2>Por Capital</h2>
-    <hr>
+    <hr />
 
     <div class="row">
       <div class="col">
         <!-- SearchBox -->
-        <shared-search-box (onValue)="searchByCapital($event)" placeholder="por capital" />
+        <shared-search-box
+          (onValue)="searchByCapital($event)"
+          placeholder="Por capital"
+        />
       </div>
     </div>
 
     <div class="row">
       <div class="col">
-        <!-- TODO: Table -->
+        <!-- Table -->
+        <hr />
+        <country-table
+          [countries]="countryService.countriesState().countries"
+        />
       </div>
     </div>
   `,
-  styles: ``
+  styles: ``,
 })
 export class ByCapitalViewComponent {
-  searchByCapital(capital: string): void {
-    console.log('searchByCapital', capital);
+  countryService = inject(CountryService);
+
+  searchByCapital(term: string): void {
+    this.countryService.searchCapital(term);
   }
 }
