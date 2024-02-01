@@ -1,17 +1,14 @@
 import { Component, inject } from '@angular/core';
 
-import { LoadingComponent, SearchBoxComponent } from '../../../shared';
+import { SearchBoxComponent } from '../../../shared';
 import { CountryService } from '../../services';
 import { CountryTableComponent } from '../../components';
 
 @Component({
   selector: 'app-by-capital-view',
   standalone: true,
-  imports: [SearchBoxComponent, CountryTableComponent, LoadingComponent],
+  imports: [SearchBoxComponent, CountryTableComponent],
   template: `
-    @if(countryService.countriesState().isLoadingCountries) {
-    <shared-loading />
-    }
     <h2>Por Capital</h2>
     <hr />
 

@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { Country } from '../../models';
 import { DecimalPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'country-table',
   standalone: true,
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, RouterLink],
   template: `
     @if(countries.length === 0) {
     <div class="alert alert-warning text-center">
@@ -33,7 +34,7 @@ import { DecimalPipe } from '@angular/common';
           <td>{{ country.name.common }}</td>
           <td>{{ country.capital }}</td>
           <td>{{ country.population | number }}</td>
-          <td><a href="">Ver Más</a></td>
+          <td><a [routerLink]="['/countries/by', country.cca3]">Ver Más</a></td>
         </tr>
         }
       </tbody>
